@@ -110,6 +110,7 @@ section > h2 {
 }
 
 #ex-2 {
+  --primary: oklch(0.5655 0.101 182.45); /* teal, scoped to this example */
   background-color: var(--primary);
 }
 
