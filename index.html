@@ -51,13 +51,14 @@
             <button id="ex-2" type="button" class="button">More amazing button</button>
           </div>
           <div class="example-code">
-            <pre tabindex="0"><code class="language-css">#ex-2 {
-  --primary: oklch(0.5655 0.101 182.45); /* teal */
-  background-color: var(--primary);
+            <pre tabindex="0"><code class="language-css">/* parto da un HEX e lo leggo in OKLCH */
+#ex-2 {
+  background-color: oklch(from #6366F1 l c h);
 }
 
+/* poi lo manipolo: stesso colore, solo più scuro */
 #ex-2:hover {
-  background-color: oklch(from var(--primary) calc(l - 0.2) c h);
+  background-color: oklch(from #6366F1 calc(l - 0.2) c h);
 }</code></pre>
           </div>
         </div>

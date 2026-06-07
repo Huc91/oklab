@@ -110,12 +110,11 @@ section > h2 {
 }
 
 #ex-2 {
-  --primary: oklch(0.5655 0.101 182.45); /* teal, scoped to this example */
-  background-color: var(--primary);
+  background-color: oklch(from #6366F1 l c h); /* hex letto in OKLCH */
 }
 
 #ex-2:hover {
-  background-color: oklch(from var(--primary) calc(l - 0.2) c h);
+  background-color: oklch(from #6366F1 calc(l - 0.2) c h); /* stesso colore, solo più scuro */
 }
 
 /* Example 3 — a design system derived from one color */
