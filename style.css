@@ -1,0 +1,179 @@
+:root {
+  --primary: oklch(0.585 0.204 277); /* #6366F1 indigo */
+
+  --l-step: 0.083;
+
+  /* Lightness levels */
+  --l-1: calc(2 * var(--l-step));
+  --l-2: calc(3 * var(--l-step));
+  --l-3: calc(4 * var(--l-step));
+  --l-4: calc(5 * var(--l-step));
+  --l-5: calc(6 * var(--l-step));
+  --l-6: calc(7 * var(--l-step));
+  --l-7: calc(8 * var(--l-step));
+  --l-8: calc(9 * var(--l-step));
+  --l-9: calc(10 * var(--l-step));
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 32px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 16px;
+}
+
+h1,
+h2 {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+/* fluid: scales down on small screens, capped on large ones */
+h1 {
+  font-size: clamp(2.5rem, 9vw, 4.5rem);
+  line-height: 1.05;
+}
+
+.byline {
+  margin-top: 8px;
+  margin-bottom: 0;
+  font-size: clamp(1rem, 4vw, 1.5rem);
+  color: oklch(0.55 0 0);
+}
+
+section > h2 {
+  margin-top: 64px;
+  font-size: 24px;
+}
+
+.example-container {
+  margin-top: 16px;
+}
+
+.example-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  padding-top: 64px;
+  padding-bottom: 64px;
+  background-color: oklch(0.9089 0 0);
+  border-radius: 16px;
+}
+
+.example-code {
+  min-height: 200px;
+  margin-top: 16px;
+  padding: 16px;
+  overflow-x: auto;
+  background-color: oklch(0.19 0 0);
+  border-radius: 8px;
+}
+
+/* highlight.js paints the <code> block; keep the wrapper transparent */
+.example-code pre {
+  margin: 0;
+}
+
+.example-code code.hljs {
+  padding: 0;
+  font-size: 16px;
+  background: transparent;
+}
+
+.button {
+  height: 64px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 24px;
+  color: oklch(0.9851 0 0);
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#ex-1 {
+  background-color: oklch(0.6 0.2 291);
+}
+
+#ex-1:hover {
+  background-color: oklch(0.5 0.2 291);
+}
+
+#ex-2 {
+  background-color: var(--primary);
+}
+
+#ex-2:hover {
+  background-color: oklch(from var(--primary) calc(l - 0.2) c h);
+}
+
+/* Example 3 — a design system derived from one color */
+.palette {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 48px;
+}
+
+.scale {
+  width: 64px;
+}
+
+.scale-name {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.scale-row {
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 2px 12px oklch(0 0 0 / 0.12);
+}
+
+/* Three palettes from ONE color — only L, C or H changes. */
+.scale-primary   { --base: var(--primary); }
+.scale-secondary { --base: oklch(from var(--primary) l c 70); }      /* swap hue → amber */
+.scale-neutral   { --base: oklch(from var(--primary) l 0.01 h); }    /* drop chroma → grey */
+
+.swatch {
+  flex: 0 0 64px;
+  width: 64px;
+  height: 64px;
+  background-color: oklch(from var(--base) var(--l) c h);
+}
+
+/* position in the row = step on the lightness ramp (lightest up, darkest down) */
+.swatch:nth-child(1) { --l: var(--l-9); }
+.swatch:nth-child(2) { --l: var(--l-8); }
+.swatch:nth-child(3) { --l: var(--l-7); }
+.swatch:nth-child(4) { --l: var(--l-6); }
+.swatch:nth-child(5) { --l: var(--l-5); }
+.swatch:nth-child(6) { --l: var(--l-4); }
+.swatch:nth-child(7) { --l: var(--l-3); }
+.swatch:nth-child(8) { --l: var(--l-2); }
+.swatch:nth-child(9) { --l: var(--l-1); }
+
+/* Mobile: tighter page gutters and a smaller palette gap so all
+   three scales fit within the viewport. */
+@media (max-width: 600px) {
+  body {
+    margin: 16px;
+  }
+
+  section > h2 {
+    margin-top: 40px;
+  }
+
+  .palette {
+    gap: 16px;
+  }
+}

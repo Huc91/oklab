@@ -1,0 +1,150 @@
+<!-- Enjoy the silence and simplicity of a normal HTML file-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OKLab &amp; OKLCH</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.10.0/styles/atom-one-dark.min.css">
+    <link rel="stylesheet" href="./style.css">
+    <link rel="icon" href="./favicon.ico" type="image/x-icon">
+  </head>
+  <body>
+    <header>
+      <h1>OKLab &amp; OKLCH</h1>
+      <p class="byline">Luca Ucciero — CSS Day 2026</p>
+    </header>
+    <main>
+      <section aria-labelledby="example-1">
+        <h2 id="example-1">Example 1</h2>
+        <div class="example-container">
+          <div class="example-content">
+            <button id="ex-1" type="button" class="button">An amazing button</button>
+          </div>
+          <div class="example-code">
+            <pre tabindex="0"><code class="language-css">.button {
+  background-color: oklch(0.6 0.2 291);
+  color: oklch(0.9851 0 0);
+  font-size: 24px;
+  height: 64px;
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.button:hover {
+  background-color: oklch(0.5 0.2 291);
+}</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <section aria-labelledby="example-2">
+        <h2 id="example-2">Example 2</h2>
+        <div class="example-container">
+          <div class="example-content">
+            <button id="ex-2" type="button" class="button">More amazing button</button>
+          </div>
+          <div class="example-code">
+            <pre tabindex="0"><code class="language-css">:root {
+  --primary: oklch(0.5655 0.101 182.45);
+}
+
+#ex-2 {
+  background-color: var(--primary);
+}
+
+#ex-2:hover {
+  background-color: oklch(from var(--primary) calc(l - 0.2) c h);
+}</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <section aria-labelledby="example-3">
+        <h2 id="example-3">Example 3 — Dynamic design systems</h2>
+        <div class="example-container">
+          <div class="example-content">
+            <div class="palette" aria-hidden="true">
+              <div class="scale scale-primary">
+                <span class="scale-name">Primary</span>
+                <div class="scale-row">
+                  <div class="swatch"></div>
+                  <div class="swatch"></div>
+                  <div class="swatch"></div>
+                  <div class="swatch"></div>
+                  <div class="swatch"></div>
+                  <div class="swatch"></div>
+                  <div class="swatch"></div>
+                  <div class="swatch"></div>
+                  <div class="swatch"></div>
+                </div>
+              </div>
+              <div class="scale scale-secondary">
+                <span class="scale-name">Secondary</span>
+                <div class="scale-row">
+                  <div class="swatch"></div>
+                  <div class="swatch"></div>
+                  <div class="swatch"></div>
+                  <div class="swatch"></div>
+                  <div class="swatch"></div>
+                  <div class="swatch"></div>
+                  <div class="swatch"></div>
+                  <div class="swatch"></div>
+                  <div class="swatch"></div>
+                </div>
+              </div>
+              <div class="scale scale-neutral">
+                <span class="scale-name">Neutral</span>
+                <div class="scale-row">
+                  <div class="swatch"></div>
+                  <div class="swatch"></div>
+                  <div class="swatch"></div>
+                  <div class="swatch"></div>
+                  <div class="swatch"></div>
+                  <div class="swatch"></div>
+                  <div class="swatch"></div>
+                  <div class="swatch"></div>
+                  <div class="swatch"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="example-code">
+            <pre tabindex="0"><code class="language-css">:root {
+  --primary: oklch(0.585 0.204 277); /* #6366F1 indigo */
+
+  /* the whole tonal ramp is pure math: a center + a step */
+  --l-mid: 0.62;
+  --l-step: 0.085;
+  --l-1: calc(var(--l-mid) + 4 * var(--l-step)); /* lightest */
+  --l-5: var(--l-mid);
+  --l-9: calc(var(--l-mid) - 4 * var(--l-step)); /* darkest  */
+  /* --l-2 … --l-8 follow the same calc */
+}
+
+/* Three palettes from ONE color — change only L, C or H. */
+.scale-primary   { --base: var(--primary); }
+.scale-secondary { --base: oklch(from var(--primary) l c 70); }      /* swap hue → amber  */
+.scale-neutral   { --base: oklch(from var(--primary) l 0.01 h); }    /* drop chroma → grey */
+
+/* Each swatch = base color walked to a lightness token. */
+.swatch {
+  flex: 0 0 64px;
+  background-color: oklch(from var(--base) var(--l) c h);
+}
+
+.swatch:nth-child(1) { --l: var(--l-1); } /* … through --l-9 */</code></pre>
+          </div>
+        </div>
+      </section>
+    </main>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.10.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+  </body>
+</html>
