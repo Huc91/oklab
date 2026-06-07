@@ -15,7 +15,7 @@
   <body>
     <header>
       <h1>OKLab &amp; OKLCH</h1>
-      <p class="byline">Luca Ucciero — CSS Day 2026</p>
+      <p class="byline">Luca Ucciero CSS Day 2026</p>
     </header>
     <main>
       <section aria-labelledby="example-1">
@@ -67,7 +67,7 @@
       </section>
 
       <section aria-labelledby="example-3">
-        <h2 id="example-3">Example 3 — Dynamic design systems</h2>
+        <h2 id="example-3">Example 3</h2>
         <div class="example-container">
           <div class="example-content">
             <div class="palette" aria-hidden="true">
@@ -119,27 +119,42 @@
             <pre tabindex="0"><code class="language-css">:root {
   --primary: oklch(0.585 0.204 277); /* #6366F1 indigo */
 
-  /* the whole tonal ramp is pure math: a center + a step */
-  --l-mid: 0.62;
-  --l-step: 0.085;
-  --l-1: calc(var(--l-mid) + 4 * var(--l-step)); /* lightest */
-  --l-5: var(--l-mid);
-  --l-9: calc(var(--l-mid) - 4 * var(--l-step)); /* darkest  */
-  /* --l-2 … --l-8 follow the same calc */
+  --l-step: 0.083;
+
+  /* Lightness levels */
+  --l-1: calc(2 * var(--l-step));
+  --l-2: calc(3 * var(--l-step));
+  --l-3: calc(4 * var(--l-step));
+  --l-4: calc(5 * var(--l-step));
+  --l-5: calc(6 * var(--l-step));
+  --l-6: calc(7 * var(--l-step));
+  --l-7: calc(8 * var(--l-step));
+  --l-8: calc(9 * var(--l-step));
+  --l-9: calc(10 * var(--l-step));
 }
 
-/* Three palettes from ONE color — change only L, C or H. */
+/* Three palettes from ONE color — only L, C or H changes. */
 .scale-primary   { --base: var(--primary); }
-.scale-secondary { --base: oklch(from var(--primary) l c 70); }      /* swap hue → amber  */
+.scale-secondary { --base: oklch(from var(--primary) l c 70); }      /* swap hue → amber */
 .scale-neutral   { --base: oklch(from var(--primary) l 0.01 h); }    /* drop chroma → grey */
 
-/* Each swatch = base color walked to a lightness token. */
 .swatch {
   flex: 0 0 64px;
+  width: 64px;
+  height: 64px;
   background-color: oklch(from var(--base) var(--l) c h);
 }
 
-.swatch:nth-child(1) { --l: var(--l-1); } /* … through --l-9 */</code></pre>
+/* position in the row = step on the lightness ramp */
+.swatch:nth-child(1) { --l: var(--l-9); }
+.swatch:nth-child(2) { --l: var(--l-8); }
+.swatch:nth-child(3) { --l: var(--l-7); }
+.swatch:nth-child(4) { --l: var(--l-6); }
+.swatch:nth-child(5) { --l: var(--l-5); }
+.swatch:nth-child(6) { --l: var(--l-4); }
+.swatch:nth-child(7) { --l: var(--l-3); }
+.swatch:nth-child(8) { --l: var(--l-2); }
+.swatch:nth-child(9) { --l: var(--l-1); }</code></pre>
           </div>
         </div>
       </section>
