@@ -133,7 +133,7 @@
 
 /* Three palettes from ONE color — only L, C or H changes. */
 .scale-primary   { --base: var(--primary); }
-.scale-secondary { --base: oklch(from var(--primary) l c 145); } /* hue → green */
+.scale-secondary { --base: oklch(from var(--primary) l c calc(h + 180)); } /* hue ruotato di 180° */
 .scale-neutral   { --base: oklch(from var(--primary) l 0.01 h); }    /* drop chroma → grey */
 
 .swatch {
