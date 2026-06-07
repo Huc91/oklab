@@ -1,6 +1,8 @@
 # OKLab &amp; OKLCH
 
-A small, dependency-free demo built for a **CSS Day 2026** talk by Luca Ucciero. It walks through three practical things you can do once colors live in the [OKLCH](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/oklch) color space instead of hex/RGB.
+A small, dependency-free demo built for the [**Oklab Color Space**](https://www.cssday.it/talk/oklab-color-space/) talk by Luca Ucciero at **CSS Day 2026** (Bologna, 11 June 2026). It walks through three practical things you can do once colors live in the [OKLCH](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/oklch) color space instead of hex/RGB.
+
+> CSS color management is evolving with wider-gamut displays. OKLCH is an intuitive alternative to RGB and HSL: perceived brightness matches the code value, it can express colors conventional formats can't, and `calc()` on its channels yields clearer, more predictable palettes.
 
 ## Examples
 
