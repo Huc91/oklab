@@ -1,5 +1,5 @@
 :root {
-  --primary: oklch(0.585 0.204 277); /* #6366F1 indigo */
+  --primary: oklch(0.585 0.204 300); /* purple */
 
   /* Headings: h1 is a multiple of h2 — 3x on desktop, 2x on mobile */
   --h2-size: 1.5rem; /* 24px */
@@ -144,7 +144,7 @@ section > h2 {
 
 /* Three palettes from ONE color — only L, C or H changes. */
 .scale-primary   { --base: var(--primary); }
-.scale-secondary { --base: oklch(from var(--primary) l c 70); }      /* swap hue → amber */
+.scale-secondary { --base: oklch(from var(--primary) l c calc(h + 180)); } /* rotate 180° → complementary green */
 .scale-neutral   { --base: oklch(from var(--primary) l 0.01 h); }    /* drop chroma → grey */
 
 .swatch {
