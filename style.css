@@ -164,6 +164,80 @@ section > h2 {
 .swatch:nth-child(8) { --l: var(--l-2); }
 .swatch:nth-child(9) { --l: var(--l-1); }
 
+/* Example 4 — one hue drives the whole card */
+.card {
+  --hue: 300; /* 🎛️ change only this → every colour in the card rotates */
+
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 300px;
+  padding: 24px;
+  border-radius: 24px;
+  background: linear-gradient(
+    in oklab,
+    oklch(0.83 0.2 var(--hue)) 0%,
+    oklch(0.83 0.2 calc(var(--hue) + 180)) 100%
+  );
+  color: oklch(0.22 0.03 var(--hue));
+  box-shadow: 0 10px 30px oklch(0 0 0 / 0.18);
+}
+
+.card__title {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.card__image {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  /* duotone: the photo gives the luminosity, the colour comes from the OKLCH gradient */
+  mix-blend-mode: luminosity;
+}
+
+.card__note {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.card__button {
+  align-self: stretch;
+  height: auto;
+  padding: 10px 20px;
+  border-radius: 64px;
+  font-size: 16px;
+  background-color: oklch(0.5 0.2 var(--hue));
+}
+
+.card__button:hover {
+  background-color: oklch(0.4 0.2 var(--hue));
+}
+
+/* slider che pilota --hue della card */
+.hue-control {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 24px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.hue-control input[type="range"] {
+  width: 220px;
+  /* la traccia è la ruota OKLCH: gira tutti gli hue */
+  accent-color: oklch(0.6 0.2 300);
+}
+
+.hue-control output {
+  min-width: 3.5ch;
+  font-variant-numeric: tabular-nums;
+}
+
 
 @media (max-width: 600px) {
   :root {

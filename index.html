@@ -159,8 +159,51 @@
           </div>
         </div>
       </section>
+
+      <section aria-labelledby="example-4">
+        <h2 id="example-4">Example 4</h2>
+        <div class="example-container">
+          <div class="example-content">
+            <article class="card">
+              <h3 class="card__title">Enjoy CSS Day</h3>
+              <img class="card__image" src="./tortellini.jpg" alt="Tortellini freschi su un tagliere di legno" width="500" height="333">
+              <p class="card__note" lang="it"><strong>Disclaimer:</strong> non voglio creare falso hype, non so se ci saranno i tortellini a pranzo.</p>
+              <button type="button" class="button card__button">YEAH!</button>
+            </article>
+            <div class="hue-control">
+              <label for="card-hue">Hue</label>
+              <input type="range" id="card-hue" min="0" max="360" value="300">
+              <output for="card-hue">300°</output>
+            </div>
+          </div>
+          <div class="example-code">
+            <pre tabindex="0"><code class="language-css">.card {
+  --hue: 300;
+
+  background: linear-gradient(in oklab,
+    oklch(0.83 0.2 var(--hue)),
+    oklch(0.83 0.2 calc(var(--hue) + 180))
+  );
+  color: oklch(0.22 0.03 var(--hue));
+}
+
+.card__image { mix-blend-mode: luminosity; }
+
+.card__button { background-color: oklch(0.5 0.2 var(--hue)); }</code></pre>
+          </div>
+        </div>
+      </section>
     </main>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.10.0/highlight.min.js"></script>
     <script>hljs.highlightAll();</script>
+    <script>
+      const hue = document.getElementById('card-hue');
+      const card = document.querySelector('.card');
+      const out = document.querySelector('output[for="card-hue"]');
+      hue.addEventListener('input', () => {
+        card.style.setProperty('--hue', hue.value);
+        out.textContent = `${hue.value}°`;
+      });
+    </script>
   </body>
 </html>

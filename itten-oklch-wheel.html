@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Itten-style wheel — OKLCH</title>
+    <style>
+      * { box-sizing: border-box; }
+      body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        margin: 0;
+        padding: 24px;
+        background: oklch(0.16 0 0);
+      }
+      svg { max-width: 100%; height: auto; }
+    </style>
+  </head>
+  <body>
+    <svg id="wheel" viewBox="0 0 460 460" width="460" height="460" aria-label="OKLCH Itten-style color wheel"></svg>
+
+    <script>
+      const NS = "http://www.w3.org/2000/svg";
+      const svg = document.getElementById("wheel");
+      const cx = 230, cy = 230, Ro = 195, Ri = 110;
+      const C = 0.22;               // croma pieno
+      // lightness che segue l'hue: chiara sul giallo (110°), scura sul blu/viola (~290°)
+      const lightFor = h => 0.78 + 0.18 * Math.cos((h - 100) * Math.PI / 180);
+
+      const rad = d => d * Math.PI / 180;
+      const pt = (h, r) => [cx + r * Math.sin(rad(h)), cy - r * Math.cos(rad(h))]; // 0° in alto, orario
+      const el = (name, attrs) => {
+        const n = document.createElementNS(NS, name);
+        for (const k in attrs) n.setAttribute(k, attrs[k]);
+        return n;
+      };
+
+      // --- anello a 12 blocchi piatti (stile Itten): ogni blocco = colore OKLCH vero al suo centro ---
+      for (let k = 0; k < 12; k++) {
+        const a1 = k * 30, a2 = a1 + 30, mid = a1 + 15;
+        const [x1, y1] = pt(a1, Ro), [x2, y2] = pt(a2, Ro);
+        const [x3, y3] = pt(a2, Ri), [x4, y4] = pt(a1, Ri);
+        svg.appendChild(el("path", {
+          d: `M${x1} ${y1} A${Ro} ${Ro} 0 0 1 ${x2} ${y2} L${x3} ${y3} A${Ri} ${Ri} 0 0 0 ${x4} ${y4} Z`,
+          fill: `oklch(${lightFor(mid)} ${C} ${mid})`,
+          stroke: "oklch(0.16 0 0)", "stroke-width": 1.5
+        }));
+      }
+
+      // --- etichette dei gradi ogni 30° ---
+      for (let d = 0; d < 360; d += 30) {
+        const [lx, ly] = pt(d, Ro + 18);
+        svg.appendChild(el("text", {
+          x: lx, y: ly, fill: "oklch(0.9 0 0)", "font-family": "system-ui, sans-serif",
+          "font-size": 14, "font-weight": 700, "text-anchor": "middle", "dominant-baseline": "middle"
+        })).textContent = d + "°";
+      }
+
+    </script>
+  </body>
+</html>
